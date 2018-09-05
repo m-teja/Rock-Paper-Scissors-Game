@@ -30,6 +30,13 @@ public class ItemSpawn {
         image.setX(200);
         image.setY(200);
         rl.addView(image);
+
+        startItemMove(image);
+    }
+
+    public void startItemMove(ImageView image) {
+        ItemMove itemMove = new ItemMove(image, spawnDelayTime);
+
     }
 
     Runnable runnableSpawnDelay = new Runnable() {
