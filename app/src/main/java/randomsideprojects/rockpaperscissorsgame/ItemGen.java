@@ -9,6 +9,20 @@ public class ItemGen {
 
     }
 
+    public void initQueue() {
+        for (int i = 0; i < 10; i++) {
+            addItem();
+        }
+    }
+
+    public int getQueueLength() {
+        return itemQueue.size();
+    }
+
+    public String getItem() {
+        return (String) itemQueue.remove(0);
+    }
+
     public String genRandomItem() {
         int randResult = (int)(Math.floor((Math.random() * 3)));
 
@@ -30,5 +44,4 @@ public class ItemGen {
     public void addItem() {
         itemQueue.add(genRandomItem());
     }
-
 }
