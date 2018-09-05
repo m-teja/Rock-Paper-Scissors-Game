@@ -36,6 +36,7 @@ public class ItemSpawn {
 
     public void startItemMove(ImageView image) {
         ItemMove itemMove = new ItemMove(image, spawnDelayTime);
+        itemMove.startMove();
 
     }
 

@@ -19,11 +19,15 @@ public class ItemMove {
     Runnable runnableStartMove = new Runnable() {
         @Override
         public void run() {
+            image.setY(image.getY() + velocity);
 
+            move.postDelayed(runnableStartMove, 10);
         }
     };
 
     public void startMove() {
-
+        move = new Handler();
+        velocity = spawnDelayTime/250;
+        runnableStartMove.run();
     }
 }
