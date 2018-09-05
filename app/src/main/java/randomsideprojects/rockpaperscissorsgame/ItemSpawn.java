@@ -1,10 +1,13 @@
 package randomsideprojects.rockpaperscissorsgame;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import static android.content.Context.MODE_PRIVATE;
+import static randomsideprojects.rockpaperscissorsgame.GameActivity.PREFERENCES_ACTIVE;
 import static randomsideprojects.rockpaperscissorsgame.GameActivity.getScreenWidth;
 
 public class ItemSpawn {
@@ -16,6 +19,8 @@ public class ItemSpawn {
     public ItemGen itemGen;
     public Context con;
     public Handler spawnDelay;
+
+    public SharedPreferences active;
 
     public ItemSpawn(ItemGen itemGen, RelativeLayout rl, Context con) {
         this.itemGen = itemGen;
@@ -52,11 +57,19 @@ public class ItemSpawn {
             }
             addToLayout();
 
-            spawnDelay.postDelayed(runnableSpawnDelay, spawnDelayTime);
+            if (active.getBoolean("active", false)) {
+                spawnDelay.postDelayed(runnableSpawnDelay, spawnDelayTime);
+            }
+            else {
+                spawnDelay.removeCallbacksAndMessages(null);
+            }
+
         }
     };
 
     public void initSpawn() {
+        active = con.getSharedPreferences(PREFERENCES_ACTIVE, MODE_PRIVATE);
+
         spawnDelay = new Handler();
         runnableSpawnDelay.run();
     }

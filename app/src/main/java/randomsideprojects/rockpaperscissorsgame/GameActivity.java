@@ -1,13 +1,17 @@
 package randomsideprojects.rockpaperscissorsgame;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.RelativeLayout;
 
 public class GameActivity extends AppCompatActivity {
+    public static final String PREFERENCES_ACTIVE = "active";
 
+    public SharedPreferences active;
+    public SharedPreferences.Editor activeEditor;
     public RelativeLayout rl;
     public Context con = this;
 
@@ -15,6 +19,11 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        active = getSharedPreferences(PREFERENCES_ACTIVE, MODE_PRIVATE);
+        activeEditor = active.edit();
+        activeEditor.putBoolean("active", true);
+        activeEditor.apply();
 
         rl = findViewById(R.id.rlGame);
 
@@ -32,6 +41,27 @@ public class GameActivity extends AppCompatActivity {
 
     public static int getScreenWidth(){
         return Resources.getSystem().getDisplayMetrics().widthPixels;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        activeEditor.putBoolean("active", true);
+        activeEditor.apply();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        activeEditor.putBoolean("active", false);
+        activeEditor.apply();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        activeEditor.putBoolean("active", false);
+        activeEditor.apply();
     }
 
 }
