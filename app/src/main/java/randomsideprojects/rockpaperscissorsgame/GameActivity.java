@@ -43,7 +43,7 @@ public class GameActivity extends AppCompatActivity {
     public void rock(View view) {
         if ((itemSpawn.getActiveImageItem().size() != 0)) {
             Item item = (Item)(itemSpawn.getActiveImageItem().get(0));
-            int check = getResources().getIdentifier("rock", "drawable", getPackageName());
+            int check = getResources().getIdentifier("scissors", "drawable", getPackageName());
 
             if (check == item.getidImage()) {
                 item.deleteItem();
@@ -54,7 +54,7 @@ public class GameActivity extends AppCompatActivity {
     public void paper(View view) {
         if ((itemSpawn.getActiveImageItem().size() != 0)) {
             Item item = (Item)(itemSpawn.getActiveImageItem().get(0));
-            int check = getResources().getIdentifier("paper", "drawable", getPackageName());
+            int check = getResources().getIdentifier("rock", "drawable", getPackageName());
 
             if (check == item.getidImage()) {
                 item.deleteItem();
@@ -65,7 +65,7 @@ public class GameActivity extends AppCompatActivity {
     public void scissors(View view) {
         if ((itemSpawn.getActiveImageItem().size() != 0)) {
             Item item = (Item)(itemSpawn.getActiveImageItem().get(0));
-            int check = getResources().getIdentifier("scissors", "drawable", getPackageName());
+            int check = getResources().getIdentifier("paper", "drawable", getPackageName());
 
             if (check == item.getidImage()) {
                 item.deleteItem();

@@ -52,7 +52,7 @@ public class Item {
         image.setLayoutParams(lp);
         image.setId(id);
         image.setX(getScreenWidth()/2 - ITEM_SIZE);
-        image.setY(200);
+        image.setY(ITEM_SIZE);
 
         itemType = (String)image.getTag();
         rl.addView(image);
