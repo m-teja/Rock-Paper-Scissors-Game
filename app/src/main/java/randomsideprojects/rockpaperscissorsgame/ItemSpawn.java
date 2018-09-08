@@ -17,12 +17,12 @@ public class ItemSpawn {
     public Context con;
 
 
-    public Handler spawnDelay;
+    public Handler spawnDelay = new Handler();
     public SharedPreferences active;
     public RelativeLayout rl;
     public ArrayList activeImageItem = new ArrayList<Item>();
 
-    public int velocity = 10;
+    public int velocity = 5;
 
     public ItemSpawn(Context con) {
         this.con = con;
@@ -63,7 +63,6 @@ public class ItemSpawn {
     }
 
     public void startSpawn() {
-        spawnDelay = new Handler();
         active = con.getSharedPreferences(PREFERENCES_ACTIVE, Context.MODE_PRIVATE);
         rl = ((Activity)con).findViewById(R.id.rlGame);
         runnableSpawn.run();
@@ -73,7 +72,10 @@ public class ItemSpawn {
         @Override
         public void run() {
             Item item = new Item(genRandItem(), velocity, con);
+            item.init();
             item.genItem();
+            item.startMove();
+
 
             activeImageItem.add(item);
 
