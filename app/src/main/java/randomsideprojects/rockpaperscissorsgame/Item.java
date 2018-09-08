@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
+
 import static randomsideprojects.rockpaperscissorsgame.GameActivity.getScreenHeight;
 import static randomsideprojects.rockpaperscissorsgame.GameActivity.getScreenWidth;
 
@@ -16,6 +18,7 @@ public class Item {
     public int idImage;
     public int id;
     public int velocity;
+    public ArrayList activeImageItem;
 
     public boolean delete = false;
 
@@ -23,12 +26,18 @@ public class Item {
     public RelativeLayout rl;
 
     public ImageView image;
+    public String itemType;
     public Handler moveDelay = new Handler();
 
-    public Item(int idImage, int velocity, Context con) {
+    public Item(int idImage, int velocity, Context con, ArrayList activeImageItem) {
         this.idImage = idImage;
         this.velocity = velocity;
         this.con = con;
+        this.activeImageItem = activeImageItem;
+    }
+
+    public int getidImage() {
+        return idImage;
     }
 
     public void init() {
@@ -45,6 +54,7 @@ public class Item {
         image.setX(getScreenWidth()/2 - ITEM_SIZE);
         image.setY(200);
 
+        itemType = (String)image.getTag();
         rl.addView(image);
 
     }
@@ -56,7 +66,7 @@ public class Item {
             image.setY(image.getY() + velocity);
 
             if (!delete) {
-                moveDelay.postDelayed(moveRunnable, 10);
+                moveDelay.postDelayed(moveRunnable, 15);
             }
             else {
                 deleteItem();
@@ -75,7 +85,9 @@ public class Item {
     }
 
     public void deleteItem() {
+        delete = true;
         moveDelay.removeCallbacksAndMessages(null);
         rl.removeView(image);
+        activeImageItem.remove(this);
     }
 }

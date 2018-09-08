@@ -16,16 +16,19 @@ public class ItemSpawn {
 
     public Context con;
 
-
     public Handler spawnDelay = new Handler();
     public SharedPreferences active;
     public RelativeLayout rl;
     public ArrayList activeImageItem = new ArrayList<Item>();
 
-    public int velocity = 5;
+    public int velocity = 7;
 
     public ItemSpawn(Context con) {
         this.con = con;
+    }
+
+    public ArrayList getActiveImageItem() {
+        return activeImageItem;
     }
 
     public int genRandItem() {
@@ -50,18 +53,6 @@ public class ItemSpawn {
         }
     }
 
-    public ImageView spawn(int id) {
-        ImageView image;
-        image = new ImageView(con);
-        image.setImageResource(id);
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        image.setLayoutParams(lp);
-        image.setX(getScreenWidth()/2 );
-        image.setY(200);
-        rl.addView(image);
-        return image;
-    }
-
     public void startSpawn() {
         active = con.getSharedPreferences(PREFERENCES_ACTIVE, Context.MODE_PRIVATE);
         rl = ((Activity)con).findViewById(R.id.rlGame);
@@ -71,11 +62,10 @@ public class ItemSpawn {
     Runnable runnableSpawn = new Runnable() {
         @Override
         public void run() {
-            Item item = new Item(genRandItem(), velocity, con);
+            Item item = new Item(genRandItem(), velocity, con, activeImageItem);
             item.init();
             item.genItem();
             item.startMove();
-
 
             activeImageItem.add(item);
 
